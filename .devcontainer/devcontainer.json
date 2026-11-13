@@ -1,0 +1,39 @@
+{
+	"name": "Debian",
+	"dockerComposeFile": ["../docker-compose.yml", "docker-compose.extend.yml"],
+	"service": "java",
+  	"workspaceFolder": "/workspace",
+  	"shutdownAction": "stopCompose",
+	"postStartCommand": "/bin/bash .devcontainer/replace_urls.sh",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "25",
+			"installMaven": true,
+			"mavenVersion": "latest"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"java.server.launchMode": "Standard",
+				"redhat.telemetry.enabled": false,
+				"java.maven.downloadSources": true
+			},
+			"extensions": [
+				"vscjava.vscode-java-pack"
+			]
+		}
+	},
+	// This configuration works for an online codespace. With a local vscode setup, adjustments are probably needed
+	"forwardPorts": [5050, 9000],
+	"portsAttributes": {
+		"5050": {
+			"label": "pgAdmin",
+			"onAutoForward": "notify"
+		},
+		"9000": {
+			"label": "Kafbat UI",
+			"onAutoForward": "notify"
+		}
+	}
+}
